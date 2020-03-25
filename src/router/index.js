@@ -1,22 +1,34 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+// 引用页面模板->供路由使用
+import index from '../pages/index.vue'
+import pageQuiButton from '../pages/pageQuiButton.vue'
+import pageQuiList from '../pages/pageQuiList.vue'
+import pageQuiNav from '../pages/pageQuiNav.vue'
+
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'index',
+    component: index
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/btn',
+    name: 'btn',
+    component: pageQuiButton
+  },
+  {
+    path: '/list',
+    name: 'list',
+    component: pageQuiList
+  },
+  {
+    path: '/nav',
+    name: 'nav',
+    component: pageQuiNav
   }
 ]
 

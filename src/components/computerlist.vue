@@ -1,33 +1,64 @@
 <template>
-  <a-form :form="form" :layout="formLayout" @submit="handleSubmit">
-    <a-form-item label="  内存" style="width: 45%">
-      <select v-model="neicui" v-on:change="indexNeicui">
-        <option v-for="option in neicuis" :key="option.id" :value="option.jg">
-          品牌：{{ option.name }} --型号： {{ option.xh }} --价格：
-          {{ option.jg }}
-        </option>
-      </select>
-    </a-form-item>
-    <a-form-item label="显卡" style="width: 45%">
-      <select v-model="xianka" v-on:change="indexXianka">
-        <option v-for="option in xiankas" :key="option.id" :value="option.jg">
-          品牌：{{ option.name }} --型号： {{ option.xh }} --价格：
-          {{ option.jg }}
-        </option>
-      </select>
-    </a-form-item>
+  <div>
+    <a-row>
+      <a-col :span="12"
+        ><a-input size="large" placeholder="电脑配置清单总价计算" /> </a-col
+    ></a-row>
 
-    <a-form-item style="width: 100%"> </a-form-item>
+    <br />
 
-    <a-form-item label="总价" style="width: 50%">
-      <h2>{{ zongjia }}</h2>
-    </a-form-item>
-    <a-form-item>
-      <a-button type="primary" html-type="submit">
-        计算总价
-      </a-button>
-    </a-form-item>
-  </a-form>
+    <a-row>
+      <a-col :span="12">
+        <div class="selectbox">
+          <label>
+            <a-button type="primary" size="large">内存</a-button>
+            <select v-model="neicui" v-on:change="setNeicuiPrice">
+              <option
+                v-for="option in neicuis"
+                :key="option.id"
+                :value="option.jg"
+              >
+                品牌：{{ option.name }} -- 型号： {{ option.xh }} -- 价格：
+                {{ option.jg }}
+              </option>
+            </select>
+          </label>
+        </div></a-col
+      >
+      <a-col :span="12">
+        <div class="selectbox">
+          <label>
+            <a-button type="primary" size="large">显卡</a-button>
+            <select v-model="xianka" v-on:change="setXiankaPrice">
+              <option
+                v-for="option in xiankas"
+                :key="option.id"
+                :value="option.jg"
+              >
+                品牌：{{ option.name }} -- 型号： {{ option.xh }} -- 价格：
+                {{ option.jg }}
+              </option>
+            </select>
+          </label>
+        </div></a-col
+      >
+    </a-row>
+
+    <br />
+    
+    <a-row type="flex" justify="start">
+      <a-col :span="2">
+        <a-button type="primary" size="large" @click="countPrice">
+          计算总价
+        </a-button></a-col
+      >
+      <a-col :span="4">
+        <a-button html-type="submit" size="large">
+          ￥ {{ zongjia }} RMB
+        </a-button></a-col
+      >
+    </a-row>
+  </div>
 </template>
 
 <script>
@@ -38,18 +69,18 @@ export default {
       form: this.$form.createForm(this, { name: "coordinated" }),
       neicui: {},
       neicuis: [],
-      neicuijiage: 0,
+      neicuiPrice: 0,
       xianka: {},
       xiankas: [],
-      xiankajiage: 0,
+      xiankaPrice: 0,
       zongjia: 0
     };
   },
   computed: {},
   components: {},
   methods: {
-    handleSubmit(e) {
-      this.zongjia = parseInt(this.neicuijiage) + parseInt(this.xiankajiage);
+    countPrice(e) {
+      this.zongjia = parseInt(this.neicuiPrice) + parseInt(this.xiankaPrice);
       e.preventDefault();
     },
     getNeicui: function() {
@@ -80,10 +111,11 @@ export default {
       //   if (res.data.data) this.options = res.data.data;
       // });
     },
-    // 获取value值
-    indexNeicui(event) {
+
+    // 为价格赋select vaule值
+    setNeicuiPrice(event) {
       // console.log(event.target.value);
-      return (this.neicuijiage = event.target.value);
+      return (this.neicuiPrice = event.target.value);
     },
     getXianka: function() {
       this.xiankas = [
@@ -113,9 +145,10 @@ export default {
       //   if (res.data.data) this.options = res.data.data;
       // });
     },
-    indexXianka(event) {
+    // 为价格赋select vaule值
+    setXiankaPrice(event) {
       // console.log(event.target.value);
-      return (this.xiankajiage = event.target.value);
+      return (this.xiankaPrice = event.target.value);
     }
   },
   created: function() {
@@ -125,4 +158,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+@import "css/select.css";
+</style>

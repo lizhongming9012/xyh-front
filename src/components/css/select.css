@@ -1,0 +1,55 @@
+select {
+    width: 350pt;
+    height: 35pt;
+    line-height: 40pt;
+    padding-right: 20pt;
+    text-align: left;
+    border: 1px solid #94c1e7;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+}
+
+option {
+    text-indent: 10px;
+    margin-top: 1px;
+    width: 249px;
+    color: black;
+    background: rgb(156, 228, 233);
+    line-height: 25px;
+    border: 1px #94c1e7 solid;
+   font-family: cursive;
+    font-size: 15pt;
+    font-weight: 300;
+}
+
+
+/*LABEL FOR SELECT*/
+label {
+    position: relative;
+    display: inline-block;
+}
+
+/*DOWNWARD ARROW (25bc)*/
+label::after {
+    content: "\25bc";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 20pt;
+    line-height: 40pt;
+    vertical-align: middle;
+    text-align: center;
+    background: #94c1e7;
+    color: #2984ce;
+    -moz-border-radius: 0 6px 6px 0;
+    -webkit-border-radius: 0 6px 6px 0;
+    border-radius: 0 6px 6px 0;
+    pointer-events: none;
+}

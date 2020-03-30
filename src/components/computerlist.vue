@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-row>
-      <a-col :span="12"
+      <a-col :span="8"
         ><a-input size="large" placeholder="电脑配置清单总价计算" /> </a-col
     ></a-row>
 
@@ -45,7 +45,7 @@
     </a-row>
 
     <br />
-    
+
     <a-row type="flex" justify="start">
       <a-col :span="2">
         <a-button type="primary" size="large" @click="countPrice">
@@ -79,78 +79,34 @@ export default {
   computed: {},
   components: {},
   methods: {
+    // 计算总价
     countPrice(e) {
       this.zongjia = parseInt(this.neicuiPrice) + parseInt(this.xiankaPrice);
       e.preventDefault();
     },
-    getNeicui: function() {
-      this.neicuis = [
-        {
-          id: 1,
-          name: "金士顿",
-          xgsj: "",
-          xh: "abc",
-          jg: 500
-        },
-        {
-          id: 2,
-          name: "金2131232131223士顿1121",
-          xgsj: "",
-          xh: "abc5fds",
-          jg: 1500
-        },
-        {
-          id: 3,
-          name: "金士顿233332",
-          xgsj: "",
-          xh: "abc2313",
-          jg: 5000
-        }
-      ];
-      // this.$axios.get("api/v1/medicine/py?py=" + value).then(res => {
-      //   if (res.data.data) this.options = res.data.data;
-      // });
-    },
 
-    // 为价格赋select vaule值
+    // 为价格赋select的vaule(即价格)值
     setNeicuiPrice(event) {
       // console.log(event.target.value);
       return (this.neicuiPrice = event.target.value);
     },
-    getXianka: function() {
-      this.xiankas = [
-        {
-          id: 1,
-          name: "英伟达",
-          xgsj: "",
-          xh: "abc",
-          jg: 500
-        },
-        {
-          id: 2,
-          name: "英伟达2131",
-          xgsj: "",
-          xh: "abc5fds",
-          jg: 1500
-        },
-        {
-          id: 3,
-          name: "英伟达21",
-          xgsj: "",
-          xh: "abc2313",
-          jg: 5000
-        }
-      ];
-      // this.$axios.get("api/v1/medicine/py?py=" + value).then(res => {
-      //   if (res.data.data) this.options = res.data.data;
-      // });
-    },
-    // 为价格赋select vaule值
     setXiankaPrice(event) {
-      // console.log(event.target.value);
       return (this.xiankaPrice = event.target.value);
+    },
+
+    // 从后台获取下拉选项
+    getNeicui: function() {
+      this.$axios.get("cname?name=内存").then(res => {
+        if (res.data.data) this.neicuis = res.data.data;
+      });
+    },
+    getXianka: function() {
+      this.$axios.get("cname?name=显卡").then(res => {
+        if (res.data.data) this.xiankas = res.data.data;
+      });
     }
   },
+
   created: function() {
     this.getNeicui();
     this.getXianka();

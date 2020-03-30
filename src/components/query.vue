@@ -6,12 +6,14 @@
         @search="onSearch"
         enterButton="Search"
         size="large"
+        v-model="condition"
+        style="width:30%"
       />
     </div>
     <div style="margin-top:10px">
       <a-table
         sorter="true"
-        rowKey="id"
+        rowKey="ID" 
         :columns="columns"
         :dataSource="data"
       />
@@ -43,20 +45,15 @@ const columns = [
     dataIndex: "xh",
     sorter: (a, b) => a.xh.length - b.xh.length,
     sortDirections: ["descend", "ascend"]
-  },
-  {
-    title: "修改时间",
-    dataIndex: "xgsj",
-    sorter: (a, b) => new Date(a.xgsj) - new Date(b.xgsj),
-    sortDirections: ["descend", "ascend"]
   }
 ];
-
 const data = [];
+const condition = "";
 
 export default {
   data() {
     return {
+      condition,
       data,
       columns
     };
@@ -65,32 +62,9 @@ export default {
   mounted() {},
   methods: {
     onSearch() {
-      this.data = [
-        {
-          id: 1,
-          name: "金士顿",
-          xgsj: "",
-          xh: "abc",
-          jg: 500
-        },
-        {
-          id: 2,
-          name: "金士顿1121",
-          xgsj: "",
-          xh: "abc5fds",
-          jg: 1500
-        },
-        {
-          id: 3,
-          name: "金士顿233332",
-          xgsj: "",
-          xh: "abc2313",
-          jg: 5000
-        }
-      ];
-      // this.$axios.get("api/v1/medicine/py?py=" + value).then(res => {
-      //   if (res.data.data) this.data = res.data.data;
-      // });
+      this.$axios.get("cname?name=" + this.condition).then(res => {
+        if (res.data.data) this.data = res.data.data;
+      });
     }
   }
 };
